@@ -15,7 +15,7 @@ public class ImageResizer {
 
     public static void writeICO(BufferedImage original, String outFile) throws IOException {
     BufferedImage scaled = resize(original, 32, 32);
-ICOEncoder.write(scaled, new File(outFile + \ "scaled.ico"));
+ICOEncoder.write(scaled, new File(outFile + "\scaled.ico"));
 }
 
 public static BufferedImage resize(BufferedImage original, int scaledWidth, int scaledHeight) {

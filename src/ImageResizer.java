@@ -2,7 +2,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+import net.sf.image4j.codec.ico.ICOEncoder;
 import javax.imageio.ImageIO;
 
 /**
@@ -13,6 +13,22 @@ import javax.imageio.ImageIO;
  */
 public class ImageResizer {
 
+    public static void writeICO(BufferedImage original, String outFile) throws IOException {
+    BufferedImage scaled = resize(original, 32, 32);
+ICOEncoder.write(scaled, new File(outFile + \ "scaled.ico"));
+}
+
+public static BufferedImage resize(BufferedImage original, int scaledWidth, int scaledHeight) {
+// creates output image
+        BufferedImage outputImage = new BufferedImage(scaledWidth,
+                scaledHeight, original.getType());
+
+        // scales the input image to the output image
+        Graphics2D g2d = outputImage.createGraphics();
+        g2d.drawImage(inputImage, 0, 0, scaledWidth, scaledHeight, null);
+        g2d.dispose();
+return outputImage;
+}
     /**
      * Resizes an image to a absolute width and height (the image may not be
      * proportional)
@@ -22,21 +38,14 @@ public class ImageResizer {
      * @param scaledHeight absolute height in pixels
      * @throws IOException
      */
-    public static void resize(String inputImagePath,
+    public static BufferedImage resize(String inputImagePath,
                               String outputImagePath, int scaledWidth, int scaledHeight)
             throws IOException {
         // reads input image
         File inputFile = new File(inputImagePath);
         BufferedImage inputImage = ImageIO.read(inputFile);
 
-        // creates output image
-        BufferedImage outputImage = new BufferedImage(scaledWidth,
-                scaledHeight, inputImage.getType());
-
-        // scales the input image to the output image
-        Graphics2D g2d = outputImage.createGraphics();
-        g2d.drawImage(inputImage, 0, 0, scaledWidth, scaledHeight, null);
-        g2d.dispose();
+        BufferedImage outputImage = resize(inputImage, scaledWidth, scaledHeight);
 
         // extracts extension of output file
         String formatName = outputImagePath.substring(outputImagePath
@@ -44,6 +53,7 @@ public class ImageResizer {
 
         // writes to output file
         ImageIO.write(outputImage, formatName, new File(outputImagePath));
+        return outputImage;
     }
 
     /**

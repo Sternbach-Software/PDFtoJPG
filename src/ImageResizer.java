@@ -88,17 +88,21 @@ public class ImageResizer {
 
         try {
             // resize to a fixed width (not proportional)
-            int scaledWidth = 1024;
-            int scaledHeight = 768;
-            ImageResizer.resize(inputImagePath, outputImagePath1, scaledWidth, scaledHeight);
+            writeICO(
+                    ImageIO.read(new File("/Users/shmuel/IdeaProjects/PDFtoJPG/Picsart_22-01-23_12-37-09-027_edited.jpeg")),
+                    "/Users/shmuel/IdeaProjects/PDFtoJPG"
+            );
+//            int scaledWidth = 1024;
+//            int scaledHeight = 768;
+//            ImageResizer.resize(inputImagePath, outputImagePath1, scaledWidth, scaledHeight);
 
             // resize smaller by 50%
             double percent = 1.073170731707;
-            ImageResizer.resize(inputImagePath, outputImagePath2, percent);
+//            ImageResizer.resize(inputImagePath, outputImagePath2, percent);
 
             // resize bigger by 50%
             percent = 1.5;
-            ImageResizer.resize(inputImagePath, outputImagePath3, percent);
+//            ImageResizer.resize(inputImagePath, outputImagePath3, percent);
 
         } catch (IOException ex) {
             System.out.println("Error resizing the image.");

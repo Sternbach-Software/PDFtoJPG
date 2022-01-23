@@ -2,44 +2,47 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 import net.sf.image4j.codec.ico.ICOEncoder;
+
 import javax.imageio.ImageIO;
 
 /**
  * This program demonstrates how to resize an image.
  *
  * @author www.codejava.net
- *
  */
 public class ImageResizer {
 
     public static void writeICO(BufferedImage original, String outFile) throws IOException {
-    BufferedImage scaled = resize(original, 32, 32);
-ICOEncoder.write(scaled, new File(outFile + "\scaled.ico"));
-}
+        BufferedImage scaled = resize(original, 32, 32);
+        ICOEncoder.write(scaled, new File(outFile + File.separator + "scaled.ico"));
+    }
 
-public static BufferedImage resize(BufferedImage original, int scaledWidth, int scaledHeight) {
+    public static BufferedImage resize(BufferedImage original, int scaledWidth, int scaledHeight) {
 // creates output image
         BufferedImage outputImage = new BufferedImage(scaledWidth,
                 scaledHeight, original.getType());
 
         // scales the input image to the output image
         Graphics2D g2d = outputImage.createGraphics();
-        g2d.drawImage(inputImage, 0, 0, scaledWidth, scaledHeight, null);
+        g2d.drawImage(original, 0, 0, scaledWidth, scaledHeight, null);
         g2d.dispose();
-return outputImage;
-}
+        return outputImage;
+    }
+
     /**
      * Resizes an image to a absolute width and height (the image may not be
      * proportional)
-     * @param inputImagePath Path of the original image
+     *
+     * @param inputImagePath  Path of the original image
      * @param outputImagePath Path to save the resized image
-     * @param scaledWidth absolute width in pixels
-     * @param scaledHeight absolute height in pixels
+     * @param scaledWidth     absolute width in pixels
+     * @param scaledHeight    absolute height in pixels
      * @throws IOException
      */
     public static BufferedImage resize(String inputImagePath,
-                              String outputImagePath, int scaledWidth, int scaledHeight)
+                                       String outputImagePath, int scaledWidth, int scaledHeight)
             throws IOException {
         // reads input image
         File inputFile = new File(inputImagePath);
@@ -58,10 +61,11 @@ return outputImage;
 
     /**
      * Resizes an image by a percentage of original size (proportional).
-     * @param inputImagePath Path of the original image
+     *
+     * @param inputImagePath  Path of the original image
      * @param outputImagePath Path to save the resized image
-     * @param percent a double number specifies percentage of the output image
-     * over the input image.
+     * @param percent         a double number specifies percentage of the output image
+     *                        over the input image.
      * @throws IOException
      */
     public static void resize(String inputImagePath,
